@@ -1,0 +1,9 @@
+*.micro.go
+*.pb.go
+
+srv-*
+app-*
+
+*.log
+
+todo.md

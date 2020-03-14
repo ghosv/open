@@ -1,0 +1,25 @@
+type TokenScopes {
+  user: User!
+  app: App
+  scopes: [String!]
+}
+
+type Query {
+  # 第三方应用检查 Token 权限 (仅返回指定 App 的部分)
+  scopes(appID: String!, appKey: String!, appSecret: String!): TokenScopes!
+  
+  # 桌面应用
+  myMarkApps: [App]!
+  # UUID 为空则查询自己
+  user(UUID: String): User
+  users(word: String!, size: Int, page: Int): UserList
+
+  app(ID: String!): App
+  apps(word: String!, size: Int, page: Int): AppList
+
+  org(ID: String!): Org
+  orgs(word: String!, size: Int, page: Int): OrgList
+
+  group(ID: String!): Group
+  groups(word: String!, size: Int, page: Int): GroupList
+}

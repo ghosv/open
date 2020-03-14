@@ -1,0 +1,19 @@
+type UserList {
+  total: Int!
+  list: [User]
+}
+
+type AppList {
+  total: Int!
+  list: [App]
+}
+
+type OrgList {
+  total: Int!
+  list: [Org]
+}
+
+type GroupList {
+  total: Int!
+  list: [Group]
+}

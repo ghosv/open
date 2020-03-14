@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package open.notify;
+option go_package="github.com/ghosv/open/plat/services/notify/proto";
+
+import "plat/services/notify/proto/verify.proto";
+
+service Verify {
+    rpc CodeMatch(VerifyCodeGroup) returns (VerifyCodeGroup) {}
+    rpc CodeDebug(VerifyCodeGroup) returns (VerifyCodeGroup) {}
+}

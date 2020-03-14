@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package open.core;
+option go_package="github.com/ghosv/open/plat/services/core/proto";
+
+import "meta/proto/common.proto";
+import "plat/services/core/proto/user.proto";
+import "plat/services/core/proto/app.proto";
+import "plat/services/core/proto/auth.proto";
+
+service User {
+    rpc Login(Credential) returns (Token) {}
+    rpc Register(Identity) returns (Token) {}
+
+    rpc Check(Token) returns (Token) {}
+}
+
+service App {
+    rpc List(Identity) returns (AppList) {}
+    rpc FindByID(AppInfo) returns (AppInfo) {}
+}
+
+service Auth {
+    rpc Authorize(AuthRequest) returns (AuthResponse) {}
+    rpc AuthorizeConfirm(AuthConfirm) returns (open.meta.None) {}
+    rpc AuthToken(AuthApp) returns (Token) {}
+
+    rpc CheckTokenScope(AuthApp) returns (AuthScope) {}
+}
+
+// TODO: route

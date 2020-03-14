@@ -1,0 +1,24 @@
+type AccessScope {
+  app: App!
+  name: String!
+  detail: String!
+}
+
+type App {
+  # public
+  id: String!
+  name: String!
+  icon: String!
+  intro: String!
+  URL: String!
+	owner: User # core srv has no owner
+  scopes: [AccessScope]
+  accessList: [AccessScope]
+  
+  # private
+  key: String
+  secret: String
+	managers: [User]
+	developers: [User]
+	users: [User]
+}

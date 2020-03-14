@@ -1,0 +1,15 @@
+type User {
+    # public
+	UUID: String!
+	nick: String!
+	avatar: String!
+	motto: String!
+	homepage: String!
+    myApps: [App]    # 创建的应用
+
+    # private
+	name: String
+	phone: String
+	email: String
+    apps: [App]     # 桌面应用
+}

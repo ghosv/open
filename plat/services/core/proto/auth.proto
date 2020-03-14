@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package open.core;
+option go_package="github.com/ghosv/open/plat/services/core/proto";
+
+import "plat/services/core/proto/user.proto";
+import "plat/services/core/proto/app.proto";
+
+enum AuthType {
+    Code = 0;     // Authorization code Grant
+    Implicit = 1; // <disable> Implicit Grant
+    Password = 2; // <disable> Resource Owner Password Credentials Grant
+    Client = 3;   // <disable> Client Credentials Grant
+}
+
+message AuthRequest {
+    string token = 1;
+    AuthType type = 2;
+    string appID = 3;
+}
+
+message AuthResponse {
+    string code = 1;
+    AppInfo info = 2;
+}
+
+message AuthConfirm {
+    string code = 1;
+    repeated AccessScope scopes = 2;
+}
+
+message AuthApp {
+    string appID = 1;
+    string appKey = 2;
+    string appSecret = 3;
+    string code = 4;
+    TokenPayload token = 5;
+}
+
+message AuthScope {
+    string appID = 1; // remote app
+    string UUID = 2;
+    repeated string scopes = 3;
+}

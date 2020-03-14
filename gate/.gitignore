@@ -1,0 +1,5 @@
+gateway
+debug
+
+static/**
+!static/graphiql

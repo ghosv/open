@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package open.notify;
+option go_package="github.com/ghosv/open/plat/services/notify/proto";
+
+import "plat/services/notify/proto/post.proto";
+
+message VerifyCode {
+    PostType type = 1;
+    string to = 2;
+    string code = 3;
+    bool match = 4;
+}
+
+message VerifyCodeGroup {
+    repeated VerifyCode codes = 1;
+}

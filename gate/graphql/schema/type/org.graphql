@@ -1,0 +1,11 @@
+type Org {
+    # public
+	id: String!
+	father: Org
+    children: [Org]
+	name: String!
+	icon: String!
+	detail: String!
+    master: User!
+    users: [User]
+}

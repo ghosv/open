@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package open.core;
+option go_package="github.com/ghosv/open/plat/services/core/proto";
+
+import "plat/services/core/proto/user.proto";
+
+message AppInfo {
+    string ID = 1;
+    string name = 2;
+    string icon = 3;
+    string intro = 4;
+    string URL = 5;
+    string ownerID = 6;
+    // UserInfo owner = 6;
+    repeated AccessScope scopes = 7;
+    repeated AccessScope accessList = 8;
+}
+
+message AppList {
+    repeated AppInfo data = 1;
+}

@@ -1,0 +1,43 @@
+enum AuthType {
+  Password
+	Phone
+	Email
+  GP # Ghost Phone
+}
+
+type Mutation {
+  postAuthCode(type: AuthType!, to: String!): Boolean! # TODO: remove? need not login!
+
+  # self.user
+  updateUser(nick: String, avatar: String, motto: String, homepage: String): User
+  updateUserPass(old: String!, pass: String!): Boolean!
+  updateUserBinding(type: AuthType!, to: String!, code: String!): Boolean!
+
+  # self.app
+  createApp(name: String!, icon: String!, intro: String!, URL: String!): App
+  deleteApp(ID: String!): Boolean!
+  resetAppSecret(ID: String!): String
+  updateApp(ID: String!, name: String, icon: String, intro: String, URL: String): App
+  addAppScope(ID: String!, name: String!, detail: String!): App
+  delAppScope(ID: String!, name: String!): App
+  addAppAccess(ID: String!, name: String!): App
+  delAppAccess(ID: String!, name: String!): App
+  markApp(ID: String!): App
+  unmarkApp(ID: String!): App
+
+  # self.org
+  createOrg(father: String, name: String!, icon: String!, detail: String!, master: String): Org
+  deleteOrg(ID: String!): Boolean!
+  updateOrg(ID: String!, name: String, icon: String, detail: String, master: String, delUsers: [String!]): Org # TODO: change father?
+  inviteJoinOrg(ID: String!, users: [String!]!): Org # TODO: use invite code
+  joinOrg(ID: String!): Org # TODO: need approve
+  quitOrg(ID: String!): Org
+
+  # self.group
+  createGroup(name: String!, icon: String!, detail: String!): Group
+  deleteGroup(ID: String!): Boolean!
+  updateGroup(ID: String!, name: String, icon: String, detail: String, master: String, delUsers: [String!]): Group
+  inviteJoinGroup(ID: String!, users: [String!]!): Group # TODO: use invite code
+  joinGroup(ID: String!): Group # TODO: need approve
+  quitGroup(ID: String!): Group
+}

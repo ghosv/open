@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package open.meta;
+option go_package="github.com/ghosv/open/meta/proto";
+
+message None {}
+
+message Visitor {
+    string UUID = 1;  // remote user
+    string appID = 2; // remote app
+    repeated string scopes = 3; // <scope>:<access> filter for local app
+}
+
+//message Response {
+//    int64 code = 1;
+//    string msg = 2;
+//}

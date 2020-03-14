@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package open.self;
+option go_package="github.com/ghosv/open/plat/services/self/proto";
+
+import "meta/proto/common.proto";
+
+message AppMap {
+    map<string, AppInfo> Data = 1;
+}
+
+message AppList {
+    int32 total = 1;
+    repeated AppInfo list = 2;
+}
+
+message AppInfo {
+    string ID = 1;
+	string name = 2;
+	string icon = 3;
+	string intro = 4;
+    string URL = 5;
+    string ownerID = 6;
+	repeated  AccessScope scopes = 7;
+    repeated AccessScope accessList = 8;
+    
+    string key = 9;
+    string secret = 10;
+    repeated string managers = 11;
+    repeated string developers = 12;
+    repeated string users = 13;
+}
+
+message AccessScope {
+    string appID = 1;
+    string name = 2;
+    string detail = 3;
+}
+
+message AppModify {
+    open.meta.Visitor visitor = 1; // user
+    string ID = 2;
+
+	string name = 3;
+	string icon = 4;
+	string intro = 5;
+    string URL = 6;
+
+    bool resetSecret = 7;
+
+    // ---^ or v---
+
+    ModifyScopeType modifyScopeType = 8;
+    // Scope <scope>:<access>
+    // Access <app_id>:<scope>:<access>
+    AccessScope scope = 9;
+}
+
+enum ModifyScopeType {
+    AddScope = 0;
+    DelScope = 1;
+    AddAccess = 2;
+    DelAccess = 3;
+}

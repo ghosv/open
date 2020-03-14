@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package open.core;
+option go_package="github.com/ghosv/open/plat/services/core/proto";
+
+message Credential {
+    string UUID = 1;
+    string namePhoneEmail = 2;
+    string pass = 3;
+}
+
+message Identity {
+    string UUID = 1;
+    string name = 2;
+    string phone = 3;
+    string email = 4;
+
+    string pass = 5;
+
+    string phoneCode = 6;
+    string emailCode = 7;
+}
+
+message UserInfo {
+    string UUID = 1;
+    string nick = 2;
+    string avatar = 3;
+    string motto = 4;
+    string homepage = 5;
+}
+
+message AccessScope {
+    string name = 1;
+    string detail = 2;
+}
+
+message TokenPayload {
+    Identity base = 1;
+    UserInfo info = 2;
+
+    string appID = 3;               // sign for app_id | "" = master token
+    repeated AccessScope scopes = 4;
+}
+
+message Token {
+    string str = 1; // JWT
+    TokenPayload payload = 2;
+}

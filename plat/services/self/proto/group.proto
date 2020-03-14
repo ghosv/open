@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package open.self;
+option go_package="github.com/ghosv/open/plat/services/self/proto";
+
+import "meta/proto/common.proto";
+
+message GroupMap {
+    map<string, GroupInfo> Data = 1;
+}
+
+message GroupList {
+    int32 total = 1;
+    repeated GroupInfo list = 2;
+}
+
+message GroupInfo {
+    string ID = 1;
+	string name = 3;
+	string icon = 4;
+	string detail = 5;
+    string masterID = 6;
+	repeated string users = 7;
+}
+
+message GroupModify {
+    open.meta.Visitor visitor = 1;
+    GroupInfo info = 2;
+}

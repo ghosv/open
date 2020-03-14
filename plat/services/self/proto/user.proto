@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package open.self;
+option go_package="github.com/ghosv/open/plat/services/self/proto";
+
+message UserMap {
+    map<string, UserInfo> Data = 1;
+}
+
+message UserList {
+    int32 total = 1;
+    repeated UserInfo list = 2;
+}
+
+message UserInfo {
+    string UUID = 1;
+	string nick = 2;
+	string avatar = 3;
+	string motto = 4;
+    string homepage = 5;
+	repeated string myApps = 6;
+    
+    string name = 7;
+    string phone = 8;
+    string email = 9;
+    string pass = 10;
+	repeated string apps = 11;
+}
+
+message UserModify {
+    string UUID = 1;
+    
+    string nick = 2;
+	string avatar = 3;
+	string motto = 4;
+    string homepage = 5;
+
+    string old = 6;
+    string pass = 7;
+
+    string phone = 8;
+    string phoneCode = 9;
+    string email = 10;
+    string emailCode = 11;
+}

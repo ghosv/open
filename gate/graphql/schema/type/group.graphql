@@ -1,0 +1,9 @@
+type Group {
+    # public
+	id: String!
+	name: String!
+	icon: String!
+	detail: String!
+    master: User!
+    users: [User]
+}

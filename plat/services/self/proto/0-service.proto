@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package open.self;
+option go_package="github.com/ghosv/open/plat/services/self/proto";
+
+import "meta/proto/common.proto";
+import "plat/services/self/proto/user.proto";
+import "plat/services/self/proto/app.proto";
+import "plat/services/self/proto/org.proto";
+import "plat/services/self/proto/group.proto";
+
+message BatchID {
+    repeated string UUID = 1;
+    repeated int64 ID = 2;
+}
+
+message SearchForm {
+    string word = 1;
+    int32 page = 2;
+    int32 size = 3;
+}
+
+service User {
+    rpc BatchFind(BatchID) returns (UserMap) {}
+    rpc Search(SearchForm) returns (UserList) {}
+    rpc Update(UserModify) returns (UserInfo) {}
+}
+
+service App {
+    rpc BatchFind(BatchID) returns (AppMap) {}
+    rpc Search(SearchForm) returns (AppList) {}
+
+    rpc Create(AppModify) returns (AppInfo) {}
+    rpc Delete(AppModify) returns (open.meta.None) {}
+    rpc Update(AppModify) returns (AppInfo) {}
+
+    rpc Mark(AppModify) returns (AppInfo) {}
+    rpc Unmark(AppModify) returns (AppInfo) {}
+}
+
+service Org {
+    rpc BatchFind(BatchID) returns (OrgMap) {}
+    rpc Search(SearchForm) returns (OrgList) {}
+
+    rpc Create(OrgModify) returns (OrgInfo) {}
+    rpc Delete(OrgModify) returns (open.meta.None) {}
+    rpc Update(OrgModify) returns (OrgInfo) {}
+    rpc Invite(OrgModify) returns (OrgInfo) {}
+
+    rpc Join(OrgModify) returns (OrgInfo) {}
+    rpc Quit(OrgModify) returns (OrgInfo) {}
+}
+
+service Group {
+    rpc BatchFind(BatchID) returns (GroupMap) {}
+    rpc Search(SearchForm) returns (GroupList) {}
+
+    rpc Create(GroupModify) returns (GroupInfo) {}
+    rpc Delete(GroupModify) returns (open.meta.None) {}
+    rpc Update(GroupModify) returns (GroupInfo) {}
+    rpc Invite(GroupModify) returns (GroupInfo) {}
+
+    rpc Join(GroupModify) returns (GroupInfo) {}
+    rpc Quit(GroupModify) returns (GroupInfo) {}
+}

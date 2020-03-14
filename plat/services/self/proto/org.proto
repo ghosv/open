@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package open.self;
+option go_package="github.com/ghosv/open/plat/services/self/proto";
+
+import "meta/proto/common.proto";
+
+message OrgMap {
+    map<string, OrgInfo> Data = 1;
+}
+
+message OrgList {
+    int32 total = 1;
+    repeated OrgInfo list = 2;
+}
+
+message OrgInfo {
+    string ID = 1;
+    string fatherID = 2;
+	repeated string childrenID = 3;
+	string name = 4;
+	string icon = 5;
+	string detail = 6;
+    string masterID = 7;
+	repeated string users = 8;
+}
+
+message OrgModify {
+    open.meta.Visitor visitor = 1;
+    OrgInfo info = 2;
+}

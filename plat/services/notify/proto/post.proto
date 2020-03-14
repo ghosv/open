@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package open.notify;
+option go_package="github.com/ghosv/open/plat/services/notify/proto";
+
+enum PostType {
+    CodePhone = 0;
+    CodeEmail = 1;
+    CodeGP = 2;
+}
+
+message PostCode {
+    PostType type = 1;
+    string to = 2;
+}
