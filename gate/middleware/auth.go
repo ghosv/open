@@ -12,15 +12,6 @@ import (
 	"github.com/ddosakura/sola/v2"
 )
 
-// TODO: 特判！
-var authGraphqlLogout = map[string]interface{}{
-	"errors": []interface{}{
-		map[string]string{
-			"message": "Logout",
-		},
-	},
-}
-
 // Auth Middleware
 func Auth(next sola.Handler) sola.Handler {
 	return func(c sola.Context) error {
@@ -42,7 +33,7 @@ func Auth(next sola.Handler) sola.Handler {
 		})
 		if err != nil {
 			if path == "/graphql" {
-				return c.JSON(http.StatusOK, authGraphqlLogout)
+				return c.JSON(http.StatusUnauthorized, nil)
 			}
 			return c.JSON(http.StatusOK, handler.Response{
 				Code: -1,
