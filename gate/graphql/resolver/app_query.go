@@ -61,8 +61,8 @@ func (r *Resolver) App(ctx context.Context, args struct {
 // Apps Query
 func (r *Resolver) Apps(ctx context.Context, args struct {
 	Word string
-	Page *int
-	Size *int
+	Page *int32
+	Size *int32
 }) (*AppListResolver, error) {
 	token := ctx.Value(meta.KeyTokenPayload).(*pb.TokenPayload)
 	acl := utils.NewACL(token, meta.SrvSelf)
@@ -70,19 +70,19 @@ func (r *Resolver) Apps(ctx context.Context, args struct {
 		return nil, meta.ErrAccessDenied
 	}
 
-	page := 1
+	page := int32(1)
 	if args.Page != nil {
 		page = *args.Page
 	}
-	size := 5
+	size := int32(5)
 	if args.Page != nil {
 		size = *args.Size
 	}
 	service := ctx.Value(meta.KeyService).(*client.MicroClient)
 	res, err := service.SelfApp.Search(ctx, &selfPb.SearchForm{
 		Word: args.Word,
-		Page: int32(page),
-		Size: int32(size),
+		Page: page,
+		Size: size,
 	})
 	if err != nil {
 		return nil, err

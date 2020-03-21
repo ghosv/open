@@ -38,6 +38,14 @@ func main() {
 	sola.Use(proxy.Favicon(cfg.Favicon))
 	sola.DefaultApp.LoadConfig()
 
+	// TODO: move to sola project
+	sola.Use(func(next sola.Handler) sola.Handler {
+		return func(c sola.Context) error {
+			c.Response().Header().Set("X-Sola", "v2")
+			return next(c)
+		}
+	})
+
 	{
 		r := router.New(nil)
 		r.Bind("GET /", handler.HomePage)
