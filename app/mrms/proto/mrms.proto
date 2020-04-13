@@ -1,0 +1,120 @@
+syntax = "proto3";
+
+package app.mrms;
+option go_package="github.com/ghosv/open/app/mrms/proto";
+
+import "google/protobuf/timestamp.proto";
+import "meta/proto/common.proto";
+
+message BatchID {
+    repeated string UUID = 1;
+    repeated int64 ID = 2;
+}
+
+message SearchForm {
+    string word = 1;
+    int32 page = 2;
+    int32 size = 3;
+}
+
+// ===
+
+message DeviceInfo {
+    string ID = 1;
+    string name = 2;
+    string type = 3;
+
+    string owner = 4;
+}
+
+message RoomInfo {
+    string ID = 1;
+    string name = 2;
+    string addr = 3;
+
+    repeated string devices = 4;
+}
+
+message MeetingInfo {
+    string ID = 1;
+    string name = 2;
+    string desc = 3;
+    google.protobuf.Timestamp startTime = 4;
+    google.protobuf.Timestamp endTime = 5;
+
+    string room = 6;
+    string host = 7; // 主持人
+    repeated string users = 8;
+}
+
+// ===
+
+message DeviceMap {
+    map<string, DeviceInfo> data = 1;
+}
+
+message DeviceList {
+    int32 total = 1;
+    repeated DeviceInfo list = 2;
+}
+
+message DeviceModify {
+    open.meta.Visitor visitor = 1;
+    DeviceInfo info = 2;
+}
+
+service Device {
+    rpc BatchFind(BatchID) returns (DeviceMap) {}
+    rpc Search(SearchForm) returns (DeviceList) {}
+
+    rpc Create(DeviceModify) returns (DeviceInfo) {}
+    rpc Delete(DeviceModify) returns (open.meta.None) {}
+    rpc Update(DeviceModify) returns (DeviceInfo) {}
+}
+
+
+message RoomMap {
+    map<string, RoomInfo> data = 1;
+}
+
+message RoomList {
+    int32 total = 1;
+    repeated RoomInfo list = 2;
+}
+
+message RoomModify {
+    open.meta.Visitor visitor = 1;
+    RoomInfo info = 2;
+}
+
+service Room {
+    rpc BatchFind(BatchID) returns (RoomMap) {}
+    rpc Search(SearchForm) returns (RoomList) {}
+
+    rpc Create(RoomModify) returns (RoomInfo) {}
+    rpc Delete(RoomModify) returns (open.meta.None) {}
+    rpc Update(RoomModify) returns (RoomInfo) {}
+}
+
+message MeetingMap {
+    map<string, MeetingInfo> data = 1;
+}
+
+message MeetingList {
+    int32 total = 1;
+    repeated MeetingInfo list = 2;
+}
+
+message MeetingModify {
+    open.meta.Visitor visitor = 1;
+    MeetingInfo info = 2;
+}
+
+service Meeting {
+    rpc BatchFind(BatchID) returns (MeetingMap) {}
+    rpc Search(SearchForm) returns (MeetingList) {}
+
+    rpc Create(MeetingModify) returns (MeetingInfo) {}
+    rpc Delete(MeetingModify) returns (open.meta.None) {}
+    rpc Update(MeetingModify) returns (MeetingInfo) {}
+}

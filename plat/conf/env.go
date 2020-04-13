@@ -1,7 +1,11 @@
 package conf
 
 import (
+	"context"
+
+	"github.com/micro/go-micro/v2/server"
 	"github.com/micro/go-micro/v2/util/log"
+	"gopkg.in/mgo.v2"
 
 	"github.com/timest/env"
 )
@@ -38,4 +42,37 @@ func init() {
 	if err := env.Fill(ENV); err != nil {
 		log.Fatal(err)
 	}
+}
+
+// === tmp ===
+
+type keyRepo struct {
+	t string
+}
+
+// MongoRepo Wrapper
+func MongoRepo() (wrapper server.HandlerWrapper, deferFn func()) {
+	var (
+		repo *mgo.Session
+		e    error
+	)
+	if repo, e = mgo.Dial(ENV.Repo.Mongo.URL); e != nil {
+		log.Fatal(e)
+	}
+	repo.SetMode(mgo.Monotonic, true)
+
+	return func(fn server.HandlerFunc) server.HandlerFunc {
+			return func(ctx context.Context, req server.Request, rsp interface{}) error {
+				ctx = context.WithValue(ctx, keyRepo{"mgo"}, repo)
+				return fn(ctx, req, rsp)
+			}
+		}, func() {
+			repo.Close()
+		}
+}
+
+// GetMongoRepo from ctx
+func GetMongoRepo(ctx context.Context) (*mgo.Session, bool) {
+	c, ok := ctx.Value(keyRepo{"mgo"}).(*mgo.Session)
+	return c.Clone(), ok
 }
