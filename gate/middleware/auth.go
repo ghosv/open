@@ -27,6 +27,9 @@ func Auth(next sola.Handler) sola.Handler {
 
 		token := r.Header.Get("Authorization")
 		token = strings.Replace(token, "Bearer ", "", 1) // TODO: 前端注意对接
+		if token == "schema" && path == "/graphql" {
+			return next(c) // for schema
+		}
 		service := c.Get(meta.CtxService).(*client.MicroClient)
 		res, err := service.CoreUser.Check(r.Context(), &pb.Token{
 			Str: token,

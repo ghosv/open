@@ -28,8 +28,9 @@ module.exports = {
             return new Date(value).valueOf()
         },
         parseValue(value) {
-            console.log('V', value) // TODO: ?
-            return value
+            const t = parseInt(value)
+            const d = new Date(t).toJSON()
+            return d.replace('Z', '000000Z')
         },
         parseLiteral(ast) {
             switch (ast.kind) {

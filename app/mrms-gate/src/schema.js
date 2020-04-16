@@ -131,19 +131,19 @@ type MeetingList {
 
 # ===
 
-type User {
-    # public
-	UUID: String!
-	nick: String!
-	avatar: String!
-	motto: String!
-	homepage: String!
-
-    # private
-	name: String
-	phone: String
-	email: String
-}
+#type User {
+#    # public
+#	UUID: String!
+#	nick: String!
+#	avatar: String!
+#	motto: String!
+#	homepage: String!
+#
+#    # private
+#	name: String
+#	phone: String
+#	email: String
+#}
 `;
 
 module.exports = typeDefs;

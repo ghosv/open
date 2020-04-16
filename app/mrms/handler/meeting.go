@@ -126,8 +126,8 @@ func (h *Meeting) Update(ctx context.Context, req *pb.MeetingModify, res *pb.Mee
 	d := bson.M{}
 	setStr(d, "name", req.Info.Name)
 	setStr(d, "desc", req.Info.Desc)
-	setTime(d, "startTime", req.Info.StartTime)
-	setTime(d, "endTime", req.Info.EndTime)
+	setTime(d, "starttime", req.Info.StartTime) // TODO: mongo 的大小写！
+	setTime(d, "endtime", req.Info.EndTime)
 
 	setStr(d, "room", req.Info.Room)
 	setStr(d, "host", req.Info.Host)   // 主持人
