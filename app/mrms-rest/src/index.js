@@ -68,21 +68,6 @@ app.use(bodyParser());
                 }
             }
         }`
-        /*
-        return `{
-            meetings(word: "${word}", size: ${size}, page: ${page}) {
-                total
-                list {
-                    ID name desc startTime endTime
-                    room { ID name addr devices { ID name type owner {
-                        UUID nick avatar motto homepage
-                    } } }
-                    host { UUID nick avatar motto homepage }
-                    users { UUID nick avatar motto homepage }
-                }
-            }
-        }`
-        */
     })
     router.get('/meeting/:id', async (ctx, next) => {
         const {
@@ -161,23 +146,6 @@ app.use(bodyParser());
         }`
     })
 
-
-        /*
-        return `{
-            meetings(word: "${word}", size: ${size}, page: ${page}) {
-                total
-                list {
-                    ID name desc startTime endTime
-                    room { ID name addr devices { ID name type owner {
-                        UUID nick avatar motto homepage
-                    } } }
-                    host { UUID nick avatar motto homepage }
-                    users { UUID nick avatar motto homepage }
-                }
-            }
-        }`
-        */
-
     router.get('/room', async (ctx, next) => {
         const {
             word = '', size = 5, page = 1
@@ -221,6 +189,18 @@ app.use(bodyParser());
         return `{
             device(ID: "${id}") {
                 ID name type
+            }
+        }`
+    })
+
+    router.get('/users', async (ctx, next) => {
+        const {
+            word = '', size = 5, page = 1
+        } = ctx.request.query
+        return `{
+            users(word: "${word.replace("\"", "\\\"")}", size: ${size}, page: ${page}) {
+                total
+                list { UUID nick avatar motto homepage }
             }
         }`
     })
