@@ -37,8 +37,8 @@ app.use(bodyParser());
         ctx.body = await axios({
             method: 'post',
             url: `http://${domain2}`,
-            header: {
-                authorization: ctx.header.authorization,
+            headers: {
+                Authorization: ctx.header.authorization,
             },
             data: {
                 operationName: null,
