@@ -13,7 +13,7 @@
     "@microhq/node-client": "^0.1.3",
     "apollo-link-context": "^1.0.20",
     "apollo-link-http": "^1.5.17",
-    "apollo-server": "^2.12.0",
+    "apollo-server": "^2.14.2",
     "cross-fetch": "^3.0.4",
     "graphql": "^15.0.0",
     "graphql-tools": "^5.0.0",
